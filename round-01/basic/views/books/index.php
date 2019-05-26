@@ -1,15 +1,41 @@
 <?php
-  use yii\helpers\Html;
-  use yii\widgets\LinkPager;
-?>
-<h1>Books</h1>
-<ul>
-  <?php foreach ($books as $book): ?>
-    <li>
-      <?= Html::encode("{$book->book_name} ({$book->book_author})") ?>:
-      <?= $book->book_price ?>
-    </li>
-  <?php endforeach; ?>
-</ul>
 
-<?= LinkPager::widget(['pagination' => $pagination]) ?>
+use yii\helpers\Html;
+use yii\grid\GridView;
+
+/* @var $this yii\web\View */
+/* @var $searchModel app\models\BooksSearch */
+/* @var $dataProvider yii\data\ActiveDataProvider */
+
+$this->title = 'Books';
+$this->params['breadcrumbs'][] = $this->title;
+?>
+<div class="books-index">
+
+    <h1><?= Html::encode($this->title) ?></h1>
+
+    <p>
+        <?= Html::a('Create Books', ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
+
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'book_ids',
+            'book_name',
+            'book_price',
+            'book_introduce',
+            'book_date',
+            //'book_author',
+
+            ['class' => 'yii\grid\ActionColumn'],
+        ],
+    ]); ?>
+
+
+</div>
