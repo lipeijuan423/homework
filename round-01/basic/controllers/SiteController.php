@@ -125,15 +125,4 @@ class SiteController extends Controller
     {
         return $this->render('about');
     }
-
-    /* *
-        * 扩展代码
-        * 创建动作
-        * test
-        * actionSay - 普通方法
-        * say - 操作
-    */
-    public function actionSay ($message = "Hello") {
-        return $this -> render('say', ['message' => $message]);
-    }
 }
