@@ -1,138 +1,127 @@
 <?php
-  namespace app\controllers;
-  use Yii;
-  use yii\web\Controller;
-  use yii\data\Pagination;
-  use app\models\Books;
-  use app\models\BooksForm;
-  use yii\data\ActiveDataProvider;
-  use yii\base\Model;
-  
-  // use DateTime;
-  // use yii\db\Query;
 
-  class BooksController extends Controller 
-  {
-    public function actionIndex() 
-    {
-      $db_data = $this->findAllModel();
-      return $this->render('index', [
-        'books' => $db_data[0],
-        'pagination' => $db_data[1],
-      ]);
-    }
+namespace app\controllers;
 
-    protected function findAllModel()
+use Yii;
+use app\models\Books;
+use app\models\BooksSearch;
+use yii\web\Controller;
+use yii\web\NotFoundHttpException;
+use yii\filters\VerbFilter;
+
+/**
+ * BooksController implements the CRUD actions for Books model.
+ */
+class BooksController extends Controller
+{
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors()
     {
-        $query = Books::find(); // 生成查询语句,从Books表中取回所有数据
-        // $books = $query->orderBy('book_name')->offset($pagination->offset)->limit($pagination->limit)->all();
-        $books = new ActiveDataProvider([ // ?
-          'query' => $query,
-        ]);
-        $pagination= new Pagination([
-          'defaultPageSize' => 2,
-          'totalCount' => $query->count(),
-        ]);
         return [
-          $books,
-          $pagination
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
+            ],
         ];
     }
 
-    /* 
-    * 编辑书的信息
-    */
-    public function editBook ($model) {
-      if ($model['Books']) {
-        $book_ids= Yii::$app->request->get('book_id');
-        $dataModel  = $this->findModel($book_ids);
-        $model = $model['Books'];
-        // var_dump($model);
-      } else {
-        $dataModel = new Books;
-      }
-      
-      $dataModel->book_name = $model['book_name'];
-      $dataModel->book_price = $model['book_price'] ;
-      $dataModel->book_introduce = $model['book_introduce'];
-      $dataModel->book_date =  $model['book_date'];
-      $dataModel->book_author = $model['book_author'];
-
-      $dataModel->save();
-    }
-
-
-    /* 
-    * 创建新书目录
-    */
-    public function actionCreate () 
+    /**
+     * Lists all Books models.
+     * @return mixed
+     */
+    public function actionIndex()
     {
-      $model = new BooksForm;
+        $searchModel = new BooksSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-      if ($model -> load(Yii::$app->request->post()) && $model->validate()) {
-       $db_data = $this->findAllModel();
-        // 创建
-        // $dataModel->book_ids =  $dataModel->getAutoIncreaseId();
-        $this->editBook($model);
-        // 地址
-        return $this->redirect('index.php?r=books' );
-      } else {
-        return $this->render('form', [
-          'model'=>$model
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
-      }
     }
-    protected function findModel ($id)
-    {
-      $books = new Books();
-      $db_data_one = $books::findOne($id);
-      return $db_data_one;
-    }
-    /* 
-    * 查看某一项书籍详情
-    */
-    public function actionUpdate () 
-    {
-      // 更新 地址
-      // $model = new BooksForm;
-      $book_ids= Yii::$app->request->get('book_id');
-      $model  = $this->findModel($book_ids);
 
-      if ($model -> load(Yii::$app->request->post()) && $model->validate()) {
-        // 创建
-        // $dataModel->book_ids =  $dataModel->getAutoIncreaseId();
-        // 没有通过数组的方式
-        $edit_data = Yii::$app->request->post();
-        $this->editBook($edit_data);
-        // 地址
-        return $this->redirect('index.php?r=books');
-      } else {
-        $book_ids= Yii::$app->request->get('book_id');
-        $db_data_one  = $this->findModel($book_ids);
-        return $this->render('form', [
-          'model' => $db_data_one
+    /**
+     * Displays a single Books model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionView($id)
+    {
+        return $this->render('view', [
+            'model' => $this->findModel($id),
         ]);
-      }
     }
 
-    /* 
-    * 删除数据
-    */
-    public function actionDelete () {
-      $db_data = $this->findAllModel();
-      $book_ids= Yii::$app->request->get('book_id');
-      $db_data_one  = $this->findModel($book_ids);
-      $db_data_one->delete();
-      // The HTTP status code is invalid: Array --- redirect
-      // render路径不对
-      /* 
-      [
-          'model'=>$db_data,
-           'books' => $db_data[0],
-           'pagination' => $db_data[1],
-        ]
-      */
-      return $this->redirect('index.php?r=books');
+    /**
+     * Creates a new Books model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionCreate()
+    {
+        $model = new Books();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->book_ids]);
+        }
+
+        return $this->render('create', [
+            'model' => $model,
+        ]);
     }
-  }
-?>
+
+    /**
+     * Updates an existing Books model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionUpdate($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->book_ids]);
+        }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Deletes an existing Books model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionDelete($id)
+    {
+        $this->findModel($id)->delete();
+
+        return $this->redirect(['index']);
+    }
+
+    /**
+     * Finds the Books model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return Books the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($id)
+    {
+        if (($model = Books::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+}
