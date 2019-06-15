@@ -1,0 +1,28 @@
+{% extends '../layouts/layout.html' %}
+{%block title%} {{title}} {%endblock%}
+
+{%block head%}
+
+{%endblock%}
+
+{%block content%}
+  <ul>
+    {%for book in books%}
+      <li>{{ book }}</li>
+    {%endfor%}
+  </ul>
+  {{result}}
+{%endblock%}
+
+{% block scripts%}
+  <script type="module">
+    // 支持现代浏览器
+    import ("/scripts/index.js").then((_) => {
+      console.log(_.default);
+    })
+  </script>
+  <script type="nomoudle" src="https://cdn.bootcss.com/systemjs/3.1.6/systemjs"></script>
+  <script>
+    // 可以使用
+  </script>
+{% endblock %}
