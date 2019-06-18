@@ -1,12 +1,10 @@
 {
-  "presets":[
-    [
-      "@babel/preset-env",
-      {
-        "targets": {
-          "esmodules": "systemjs"
-        }
-      }
+    "presets": [
+        [
+            "@babel/preset-env",
+            {
+                "modules": "systemjs"
+            }
+        ]
     ]
-  ]
 }

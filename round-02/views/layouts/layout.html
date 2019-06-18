@@ -1,16 +1,13 @@
-<!doctype html>
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta content="中文">
-  <title>{% block title %}My Site{% endblock %}</title>
-  {%block head%}{%%endblock}
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock  %}</title>
+    {% block head %}{% endblock  %}
 </head>
-
 <body>
-  {% block content %}{% endblock %}
-  {% block scripts%} {%endblock%}
+    {% block content %}{% endblock  %}
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+    {% block scripts %}{% endblock  %}
 </body>
-
 </html>
