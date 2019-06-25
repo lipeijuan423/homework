@@ -263,3 +263,9 @@
   syscall: 'open',
   path: '/Users/lipeijuan/Documents/yideng/homework/round-03/src/server/views/books/index.html'
 }
+[2019-06-23T23:25:25.493] [ERROR] cheese - [Error: ENOENT: no such file or directory, open '/Users/lipeijuan/Documents/yideng/homework/round-03/src/server/views/books/index.html'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/lipeijuan/Documents/yideng/homework/round-03/src/server/views/books/index.html'
+}

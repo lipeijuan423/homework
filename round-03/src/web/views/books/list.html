@@ -12,9 +12,11 @@
 {% endblock %}
 {% block scripts %}
 <!-- <script src="https://cdn.bootcss.com/x-tag/2.0.9-alpha/x-tag-polyfilled.js"></script> -->
-<script src="./list.js"></script>
+<!-- <script src="/scripts/list.js"></script> -->
 <script>
-    // require('x-tag'); // 为什么
+    import("xTag/x-tag-polyfilled.js").then((_) => {
+            console.log(_.default);
+        })
     const frank = xtag.create('x-books', class extends XTagElement {
         name() { return 'Frankenstein'; }
         '::template(true)'() {
