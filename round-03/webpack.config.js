@@ -2,7 +2,7 @@
 const path = require('path');
 module.exports = {
     entry: {
-        'index': './src/web/main.js'
+        'index': './src/web/assets/scripts/index.js'
     },
     output: {
         path: path.resolve(__dirname, "dist"),
@@ -10,7 +10,7 @@ module.exports = {
     },
     resolve: {
         alias: {
-            xTag: path.resolve(__dirname, 'node_modules/x-tag/dist/')
+            'x-tag': 'node_modules/x-tag/dist/x-tag-polyfilled.js'
         }
     }
 }

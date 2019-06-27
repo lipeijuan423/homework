@@ -8,11 +8,5 @@ module.exports = (app) => {
         _.get('/', indexController.actionIndex);
         _.get('/index.html', indexController.actionIndex);
         _.get('/books/list', booksController.actionList);
-        _.get('/books', async (ctx, next) => {
-            // render
-            ctx.body = await ctx.render('../../web/views/books/list', {
-                data: ['21']
-            });
-        } );
     }));
 }

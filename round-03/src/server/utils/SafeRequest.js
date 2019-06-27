@@ -18,7 +18,6 @@ class SafeRequest {
                     result.data = json;
                     resolve(result);
                 }).catch((error) => {
-                    console.log(error, 'err')
                     result.code = 1;
                     result.message = "❎node-fetch请求数据失败";
                     reject(result)

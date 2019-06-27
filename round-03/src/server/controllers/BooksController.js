@@ -1,5 +1,4 @@
 const Books = require("../models/Books");
-const fetch = require("node-fetch");
 class BooksController {
     constructor() {
     }
@@ -8,8 +7,8 @@ class BooksController {
         const result = await books.getData({
             url: "books/index"
         });
-        // render
-        ctx.body = await ctx.render('../../web/views/books/list', {
+        console.log(result);
+        ctx.body = await ctx.render('books/list', {
             data: result.data
         });
     }
