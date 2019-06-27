@@ -36,5 +36,8 @@
     System.import("/scripts/index-bundle.js").then((_) => {
         console.log(_.default);
     })
+    import("/scripts/index.js").then((_) => {
+        console.log(_.default);
+    })
 </script>
 {% endblock  %}
