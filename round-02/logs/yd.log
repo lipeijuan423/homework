@@ -9,4 +9,3 @@
     at app.use (/Users/yuanzhijia/Desktop/yd-books/middlewares/errorHandler.js:5:23)
     at dispatch (/Users/yuanzhijia/Desktop/yd-books/node_modules/koa/node_modules/koa-compose/index.js:42:32)
     at serve (/Users/yuanzhijia/Desktop/yd-books/node_modules/koa-static/index.js:53:15)
-[2019-06-24T20:15:45.766] [ERROR] cheese - { code: 1, message: '❎node-fetch请求数据失败', data: [] }
