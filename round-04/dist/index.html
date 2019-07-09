@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>webpack入门</title>
+</head>
+<body>
+    <script>
+        // 防止 type = "module" 和 nomodule 两个都支持
+       /*  (function () {
+                var check = document.createElement('script');
+                if (!('noModule' in check) && 'onbeforeload' in check) {
+                    var support = false;
+                    document.addEventListener('beforeload', function (e) {
+                        if (e.target === check) {
+                            support = true;
+                        } else if (!e.target.hasAttribute('nomodule') || !support) {
+                            return;
+                        }
+                    }, true);
+
+                    check.type = 'module';
+                    check.src = '.';
+                    document.head.appendChild(check);
+                    check.remove();
+                }
+            }()); */
+    </script>
+<script src="main.bundle.js" nomodule></script><script> (function () {
+                var check = document.createElement('script');
+                if (!('noModule' in check) && 'onbeforeload' in check) {
+                    var support = false;
+                    document.addEventListener('beforeload', function (e) {
+                        if (e.target === check) {
+                            support = true;
+                        } else if (!e.target.hasAttribute('nomodule') || !support) {
+                            return;
+                        }
+                    }, true);
+
+                    check.type = 'module';
+                    check.src = '.';
+                    document.head.appendChild(check);
+                    check.remove();
+                }
+            }());</script><script type="module" src="main.js"></script><script> (function () {
+                var check = document.createElement('script');
+                if (!('noModule' in check) && 'onbeforeload' in check) {
+                    var support = false;
+                    document.addEventListener('beforeload', function (e) {
+                        if (e.target === check) {
+                            support = true;
+                        } else if (!e.target.hasAttribute('nomodule') || !support) {
+                            return;
+                        }
+                    }, true);
+
+                    check.type = 'module';
+                    check.src = '.';
+                    document.head.appendChild(check);
+                    check.remove();
+                }
+            }());</script><script type="module" src="main.js"></script><script> (function () {
+                var check = document.createElement('script');
+                if (!('noModule' in check) && 'onbeforeload' in check) {
+                    var support = false;
+                    document.addEventListener('beforeload', function (e) {
+                        if (e.target === check) {
+                            support = true;
+                        } else if (!e.target.hasAttribute('nomodule') || !support) {
+                            return;
+                        }
+                    }, true);
+
+                    check.type = 'module';
+                    check.src = '.';
+                    document.head.appendChild(check);
+                    check.remove();
+                }
+            }());</script></body>
+</html>

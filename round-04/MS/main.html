@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>简单的监控系统</title>
+</head>
+<body>
+  <script>
+    function getPaintTime() {
+        let obj = {}
+        if (window.performance && window.performance.getEntriesByType) {
+          let paintArr = window.performance.getEntriesByType('paint')
+          if (paintArr && paintArr.length) {
+            paintArr.forEach(function (item) {
+              obj[item.name] = item.startTime
+            })
+          }
+          console.log(paintArr, 'arr')
+        }
+        return obj
+      }
+    window.onload = e => {
+      var dom = document.createElement('div');
+
+      var timing = performance.timing;
+      var responseEnd = 0;
+      console.log(timing, timing.loadEventEnd)
+      var TTFB = Math.abs(timing.responseStart - timing.navigationStart);
+      var TTI = Math.abs(timing.loadEventStart - timing.navigationStart);
+      var loadPage = Math.abs(timing.loadEventStart - timing.navigationStart);
+      var domLoading = Math.abs(timing.domComplete - timing.responseEnd);
+      setTimeout(() => {
+          let paint = getPaintTime() 
+            let fragement = document.createElement('p');
+            fragement.innerHTML = `
+                <p>FP首次绘制：${paint['first-paint']}</p>
+                <p>FCP首次有内容绘制：${paint['first-contentful-paint']}</p>
+            `
+            dom.appendChild(fragement);
+      }, 1000);
+      
+      
+      var html = `
+        <p>TTFB首字节的时间：${TTFB}</p>
+        <p>FMP首次有意义的绘制❌：${responseEnd}</p>
+        <p>TTI可交互时间❌：${TTI}</p>
+        <p>用户等待页面的时间：${loadPage}</p>
+        <p>DOM树构建的时间：${domLoading}</p>
+      `
+      dom.innerHTML = html;
+      document.body.appendChild(dom);
+    }
+  </script>
+</body>
+</html>
