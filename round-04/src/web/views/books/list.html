@@ -3,9 +3,10 @@
 {% block head %}
 {% endblock  %}
 {% block content %}
+{{data}}
     <ul>
     {% for val in data %}
-        <li>[[ val.author ]]</li>    
+        <li>[[ val ]]</li>    
     {% endfor %}
     </ul>
 {% endblock %}
