@@ -25,6 +25,7 @@ class SafeRequest {
     };
     return new Promise((resolve, reject) => {
       let ydfetch = (0, _nodeFetch.default)(this.baseUrl + this.url);
+      console.log(1);
       ydfetch.then(res => res.json()).then(json => {
         result.data = json;
         resolve(result);

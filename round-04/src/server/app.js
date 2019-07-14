@@ -7,7 +7,7 @@ import { wrap } from 'co';
 import errorHandler from "./middlewares/errorHandler";
 import { configure, getLogger } from 'log4js';
 configure({
-    appenders: { cheese: { type: 'file', filename: __dirname + './logs/yd.log' } },
+    appenders: { cheese: { type: 'file', filename: '../logs/yd.log' } },
     categories: { default: { appenders: ['cheese'], level: 'error' } }
 });
 app.use(serve(config.staticDir));

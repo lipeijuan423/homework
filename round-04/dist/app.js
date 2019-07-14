@@ -21,7 +21,7 @@ const app = new _koa.default();
   appenders: {
     cheese: {
       type: 'file',
-      filename: __dirname + './logs/yd.log'
+      filename: '../logs/yd.log'
     }
   },
   categories: {
