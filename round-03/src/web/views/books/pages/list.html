@@ -1,0 +1,21 @@
+{% extends '../../layouts/layout.html' %}
+{% block title %} 📚图书展示页面 {% endblock %}
+{% block head %}
+<!-- injectcss -->
+{% endblock  %}
+{% block content %}
+<!-- {{data}}
+    <ul>
+    {% for val in data %}
+        <li>[[ val.book_name ]]</li>    
+    {% endfor %}
+    </ul> -->
+    {%
+        include "@components/list/list.html"
+    %}
+{% endblock %}
+{% block scripts %}
+        <!-- injectjs -->
+{% endblock  %}
+<!-- <link rel="stylesheet" href="">
+<script type="module"> </script> -->

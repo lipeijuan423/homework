@@ -1,0 +1,18 @@
+<div id="pjaxcontext">
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th>编号</th>
+            <th>书名</th>
+            <th>作者</th>
+        </tr>
+        <tr>
+            {% for val in data %}
+            <td>[[val.book_name]]</td>
+            <td>[[val.book_name]]</td>
+            <td>[[val.author]]</td>
+            {% endfor %}
+        </tr>
+    </table>
+
+</div>
+

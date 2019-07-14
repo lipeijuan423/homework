@@ -23,6 +23,8 @@ var _default = app => {
     _.get('/index.html', indexController.actionIndex);
 
     _.get('/books/list', booksController.actionList);
+
+    _.get('/books/add', booksController.actionAdd);
   }));
 };
 

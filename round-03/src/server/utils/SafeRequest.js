@@ -1,9 +1,9 @@
-import { baseUrl } from "../config";
+import config from "../config";
 import fetch from "node-fetch";
 class SafeRequest {
     constructor(url) {
         this.url = url;
-        this.baseUrl = baseUrl;
+        this.baseUrl = config.baseUrl;
     }
     fetch() {
         let result = {
@@ -13,11 +13,13 @@ class SafeRequest {
         }
         return new Promise((resolve, reject) => {
             let ydfetch = fetch(this.baseUrl + this.url);
+            console.log(1)
             ydfetch.then(res => res.json())
                 .then((json) => {
                     result.data = json;
                     resolve(result);
                 }).catch((error) => {
+                    console.log(error, 'eror')
                     result.code = 1;
                     result.message = "❎node-fetch请求数据失败";
                     reject(result)
